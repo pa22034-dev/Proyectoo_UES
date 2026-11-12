@@ -14,9 +14,9 @@ namespace Proyectoo_UES.Formularios
     {
         private readonly GestorActividades gestor;
 
-public FrmCupos(GestorActividades gestor)
-{
-    this.gestor = gestor;
+        public FrmCupos(GestorActividades gestor)
+        {
+            this.gestor = gestor;
             InitializeComponent();
             ActualizarTabla();
         }
@@ -45,6 +45,11 @@ public FrmCupos(GestorActividades gestor)
         private void btnSalir_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void dgvCupos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
