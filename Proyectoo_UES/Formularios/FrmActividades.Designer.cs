@@ -366,9 +366,9 @@ namespace Proyectoo_UES // Espacio de nombres del proyecto.
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.logo_ues_blanco_1_838x1024;
-            pictureBox1.Location = new Point(112, 34);
+            pictureBox1.Location = new Point(112, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(125, 100);
+            pictureBox1.Size = new Size(125, 141);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 5;
             pictureBox1.TabStop = false;
