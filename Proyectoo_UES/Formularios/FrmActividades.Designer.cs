@@ -5,46 +5,45 @@ using System.Windows.Forms;
 // Define el espacio de nombres principal del proyecto.
 namespace Proyectoo_UES
 {
-    // Declara la parte de diseño de la clase parcial FrmActividades.
-    partial class FrmActividades
+    partial class FrmActividades // Declara la clase parcial del formulario.
     {
         // Contenedor que almacena los componentes no visuales del formulario para su liberación.
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components = null; // Declara el contenedor de componentes del formulario.
 
         // Declara las etiquetas descriptivas para el título y los campos del formulario.
-        private Label lblTitulo, lblNombre, lblDescripcion, lblFecha, lblLugar, lblCapacidad;
+        private Label lblTitulo, lblNombre, lblDescripcion, lblFecha, lblLugar, lblCapacidad; // Declara las etiquetas que muestran los textos descriptivos.
 
         // Declara los cuadros de texto para ingresar nombre, descripción y lugar de la actividad.
-        private TextBox txtNombre, txtDescripcion, txtLugar;
+        private TextBox txtNombre, txtDescripcion, txtLugar; // Declara los cuadros de texto para ingresar información.
 
         // Declara el selector de calendario para elegir la fecha de la actividad.
-        private DateTimePicker dtpFecha;
+        private DateTimePicker dtpFecha; // Declara el selector de fecha de la actividad.
 
         // Declara el control numérico con flechas para establecer el cupo máximo.
-        private NumericUpDown nudCapacidad;
+        private NumericUpDown nudCapacidad; // Declara el control numérico para establecer la capacidad.
 
         // Declara la cuadrícula tabular donde se visualizan las actividades registradas.
-        private DataGridView dgvActividades;
+        private DataGridView dgvActividades; // Declara la tabla donde se muestran las actividades.
 
         // Declara los botones de acción del formulario.
-        private Button btnRegistrar, btnEliminar, btnLimpiar, btnActualizar, btnVolver;
+        private Button btnRegistrar, btnEliminar, btnLimpiar, btnActualizar, btnVolver; // Declara los botones de acciones del formulario.
 
         // Sobrescribe el método Dispose para liberar los recursos utilizados por el formulario.
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool disposing) // Sobrescribe el método encargado de liberar recursos.
         {
             // Comprueba si se está liberando memoria administrada y si existen componentes instanciados.
-            if (disposing && components != null)
+            if (disposing && components != null) // Comprueba si corresponde liberar los componentes.
             {
                 // Libera los recursos de todos los componentes contenidos.
-                components.Dispose();
+                components.Dispose(); // Libera los recursos del componente indicado.
             }
 
             // Llama al método Dispose de la clase base Form.
-            base.Dispose(disposing);
+            base.Dispose(disposing); // Ejecuta la liberación de recursos de la clase base.
         }
 
         // Método privado que instancia, configura y posiciona todos los controles visuales del formulario.
-        private void InitializeComponent()
+        private void InitializeComponent() // Declara el método que configura los controles del formulario.
         {
             lblTitulo = new Label();
             lblNombre = new Label();
@@ -400,26 +399,27 @@ namespace Proyectoo_UES
         }
 
         // Declara la columna 1 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        // Declara la columna 2 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        // Declara la columna 3 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        // Declara la columna 4 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        // Declara la columna 5 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        // Declara la columna 6 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        // Declara la columna 7 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        // Declara la columna 8 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        // Declara el contenedor en cuadrícula del formulario.
-        private TableLayoutPanel formulario;
-        // Declara el contenedor de flujo para los botones.
-        private FlowLayoutPanel botones;
-        // Declara el control de imagen del logotipo.
-        private PictureBox pictureBox1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1; // Declara la tabla donde se muestran las actividades.
+                                                                      // Declara la columna 2 de tipo texto para la tabla.
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2; // Declara la tabla donde se muestran las actividades.
+                                                                      // Declara la columna 3 de tipo texto para la tabla.
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3; // Declara la tabla donde se muestran las actividades.
+                                                                      // Declara la columna 4 de tipo texto para la tabla.
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4; // Declara la tabla donde se muestran las actividades.
+                                                                      // Declara la columna 5 de tipo texto para la tabla.
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5; // Declara la tabla donde se muestran las actividades.
+                                                                      // Declara la columna 6 de tipo texto para la tabla.
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6; // Declara la tabla donde se muestran las actividades.
+                                                                      // Declara la columna 7 de tipo texto para la tabla.
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7; // Declara la tabla donde se muestran las actividades.
+                                                                      // Declara la columna 8 de tipo texto para la tabla.
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8; // Declara la tabla donde se muestran las actividades.
+                                                                      // Declara el contenedor en cuadrícula del formulario.
+        private TableLayoutPanel formulario; // Declara un contenedor que organiza controles en filas y columnas.
+                                             // Declara el contenedor de flujo para los botones.
+        private FlowLayoutPanel botones; // Declara un contenedor que organiza controles en secuencia.
+                                         // Declara el control de imagen del logotipo.
+        private PictureBox pictureBox1; // Declara el control que muestra el logotipo.
     }
+
 }

@@ -84,16 +84,15 @@ namespace Proyectoo_UES.Formularios
             Close();
         }
 
-        // Evento generado por el diseñador al hacer clic sobre la etiqueta del título (sin acción asignada).
+       
         private void lblTitulo_Click(object sender, EventArgs e)
         {
-            // Bloque vacío: no se requiere realizar ninguna acción al presionar el título.
+            
         }
 
-        // Evento generado por el diseñador al hacer clic sobre la imagen del logotipo (sin acción asignada).
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            // Bloque vacío: no se requiere realizar ninguna acción al presionar el logotipo.
+            
         }
     }
 }

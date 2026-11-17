@@ -2,9 +2,10 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-// Define el espacio de nombres correspondiente a los formularios de la interfaz gráfica.
 namespace Proyectoo_UES.Formularios
-{
+{ 
+    
+
     // Declara la parte de diseño de la clase parcial FrmInscripciones.
     partial class FrmInscripciones
     {
@@ -14,36 +15,36 @@ namespace Proyectoo_UES.Formularios
         // Declara las etiquetas descriptivas del título y los campos de entrada.
         private Label lblTitulo, lblActividad, lblCarnet, lblNombre;
 
-        // Declara el menú desplegable para seleccionar la actividad en la que se realizará la gestión.
+        // Declara el menú desplegable para seleccionar la actividad.
         private ComboBox cboActividad;
 
         // Declara los cuadros de texto para ingresar el carné y el nombre del estudiante.
         private TextBox txtCarnet, txtNombre;
 
-        // Declara las dos tablas que muestran respectivamente a los estudiantes inscritos y en cola de espera.
+        // Declara las tablas que muestran los estudiantes inscritos y los que están en espera.
         private DataGridView dgvInscritos, dgvEspera;
 
-        // Declara los botones de acción del formulario.
+        // Declara los botones que permiten realizar las acciones del formulario.
         private Button btnInscribir, btnCancelar, btnActualizar, btnVolver;
 
-        // Declara los cuadros de agrupación que enmarcan cada tabla con su título.
+        // Declara los cuadros que agrupan las tablas de inscritos y espera.
         private GroupBox grpInscritos, grpEspera;
 
-        // Sobrescribe el método Dispose para liberar correctamente los recursos utilizados por el formulario.
+        // Sobrescribe el método Dispose para liberar los recursos utilizados por el formulario.
         protected override void Dispose(bool disposing)
         {
-            // Comprueba si se deben liberar los recursos administrados y si el contenedor no es nulo.
+            // Comprueba si se deben liberar los recursos y si el contenedor existe.
             if (disposing && components != null)
             {
-                // Libera los recursos de todos los componentes registrados.
+                // Libera los recursos de todos los componentes.
                 components.Dispose();
             }
 
-            // Llama al método Dispose de la clase base Form.
+            // Ejecuta el método Dispose de la clase base Form.
             base.Dispose(disposing);
         }
 
-        // Método privado que instancia, configura y distribuye todos los controles visuales del formulario.
+        // Método que crea y configura todos los controles visuales del formulario.
         private void InitializeComponent()
         {
             lblTitulo = new Label();
@@ -365,42 +366,50 @@ namespace Proyectoo_UES.Formularios
             ResumeLayout(false);
         }
 
-        // Método auxiliar privado que configura propiedades visuales estándar en un DataGridView.
+        // Método auxiliar que configura las propiedades generales de una tabla.
         private void ConfigurarTabla(DataGridView tabla)
         {
             // Hace que la tabla ocupe todo el espacio disponible de su contenedor.
             tabla.Dock = DockStyle.Fill;
 
-            // Impide que el usuario edite directamente el contenido de las celdas.
+            // Impide que el usuario pueda modificar directamente los datos.
             tabla.ReadOnly = true;
 
-            // Impide que el usuario agregue nuevas filas manualmente desde la interfaz.
+            // Impide que el usuario agregue filas manualmente.
             tabla.AllowUserToAddRows = false;
 
-            // Configura la selección para marcar la fila completa al hacer clic.
+            // Permite seleccionar una fila completa al hacer clic sobre ella.
             tabla.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // Ajusta automáticamente el ancho de todas las columnas para llenar el ancho de la tabla.
+            // Ajusta automáticamente el ancho de las columnas para ocupar toda la tabla.
             tabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        // Declara la columna Carné de la tabla de inscritos.
+        // Declara la columna Carné de la tabla de estudiantes inscritos.
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+
         // Declara la columna Estudiante inscrito de la tabla de inscritos.
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+
         // Declara la columna Carné de la tabla de espera.
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+
         // Declara la columna Estudiante en espera de la tabla de espera.
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+
         // Declara la columna Fecha de solicitud de la tabla de espera.
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        // Declara el contenedor en cuadrícula para los controles de entrada superiores.
+
+        // Declara el contenedor que organiza los campos de entrada en filas y columnas.
         private TableLayoutPanel datos;
-        // Declara el contenedor en cuadrícula para las dos tablas de resultados.
+
+        // Declara el contenedor que organiza las dos tablas.
         private TableLayoutPanel tablas;
-        // Declara el contenedor de flujo horizontal para los botones de acción.
+
+        // Declara el contenedor que organiza los botones horizontalmente.
         private FlowLayoutPanel botones;
-        // Declara el control de imagen del logotipo institucional.
+
+        // Declara el control que permite mostrar el logotipo de la universidad.
         private PictureBox pictureBox1;
     }
 }

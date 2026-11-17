@@ -75,10 +75,10 @@ namespace Proyectoo_UES.Formularios
             Close();
         }
 
-        // Evento generado por el diseñador al hacer clic dentro del contenido de una celda de la tabla (sin acción asignada).
+       
         private void dgvCupos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Bloque vacío: no se requiere ejecutar ninguna acción al hacer clic en una celda.
+            
         }
     }
 }

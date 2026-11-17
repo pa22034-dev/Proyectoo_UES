@@ -1,7 +1,6 @@
 using System;
 using Proyectoo_UES.Modelos;
 
-// Define el espacio de nombres correspondiente a las estructuras de datos personalizadas del proyecto.
 namespace Proyectoo_UES.Estructuras
 {
     // Declara la clase pública ColaInscripciones que implementa una cola FIFO (primero en entrar, primero en salir).
