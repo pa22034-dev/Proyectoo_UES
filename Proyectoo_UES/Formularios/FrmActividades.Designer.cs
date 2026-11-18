@@ -1,49 +1,49 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System; // Importa el espacio de nombres base de .NET para tipos de datos y funcionalidades fundamentales.
+using System.Drawing; // Importa el espacio de nombres para la gestión de colores, fuentes y gráficos.
+using System.Windows.Forms; // Importa el espacio de nombres para crear aplicaciones de interfaz de usuario de Windows Forms.
 
 // Define el espacio de nombres principal del proyecto.
 namespace Proyectoo_UES
 {
-    partial class FrmActividades // Declara la clase parcial del formulario.
+    partial class FrmActividades // Declara una clase parcial que conforma el formulario de gestión de actividades.
     {
         // Contenedor que almacena los componentes no visuales del formulario para su liberación.
-        private System.ComponentModel.IContainer components = null; // Declara el contenedor de componentes del formulario.
+        private System.ComponentModel.IContainer components = null; // Declara un contenedor para administrar los componentes no visuales del formulario.
 
         // Declara las etiquetas descriptivas para el título y los campos del formulario.
-        private Label lblTitulo, lblNombre, lblDescripcion, lblFecha, lblLugar, lblCapacidad; // Declara las etiquetas que muestran los textos descriptivos.
+        private Label lblTitulo, lblNombre, lblDescripcion, lblFecha, lblLugar, lblCapacidad;
 
         // Declara los cuadros de texto para ingresar nombre, descripción y lugar de la actividad.
-        private TextBox txtNombre, txtDescripcion, txtLugar; // Declara los cuadros de texto para ingresar información.
+        private TextBox txtNombre, txtDescripcion, txtLugar;
 
         // Declara el selector de calendario para elegir la fecha de la actividad.
-        private DateTimePicker dtpFecha; // Declara el selector de fecha de la actividad.
+        private DateTimePicker dtpFecha;
 
         // Declara el control numérico con flechas para establecer el cupo máximo.
-        private NumericUpDown nudCapacidad; // Declara el control numérico para establecer la capacidad.
+        private NumericUpDown nudCapacidad;
 
         // Declara la cuadrícula tabular donde se visualizan las actividades registradas.
-        private DataGridView dgvActividades; // Declara la tabla donde se muestran las actividades.
+        private DataGridView dgvActividades;
 
         // Declara los botones de acción del formulario.
-        private Button btnRegistrar, btnEliminar, btnLimpiar, btnActualizar, btnVolver; // Declara los botones de acciones del formulario.
+        private Button btnRegistrar, btnEliminar, btnLimpiar, btnActualizar, btnVolver;
 
         // Sobrescribe el método Dispose para liberar los recursos utilizados por el formulario.
-        protected override void Dispose(bool disposing) // Sobrescribe el método encargado de liberar recursos.
+        protected override void Dispose(bool disposing)
         {
             // Comprueba si se está liberando memoria administrada y si existen componentes instanciados.
-            if (disposing && components != null) // Comprueba si corresponde liberar los componentes.
+            if (disposing && components != null)
             {
                 // Libera los recursos de todos los componentes contenidos.
-                components.Dispose(); // Libera los recursos del componente indicado.
+                components.Dispose();
             }
 
             // Llama al método Dispose de la clase base Form.
-            base.Dispose(disposing); // Ejecuta la liberación de recursos de la clase base.
+            base.Dispose(disposing);
         }
 
         // Método privado que instancia, configura y posiciona todos los controles visuales del formulario.
-        private void InitializeComponent() // Declara el método que configura los controles del formulario.
+        private void InitializeComponent()
         {
             lblTitulo = new Label();
             lblNombre = new Label();
@@ -57,14 +57,14 @@ namespace Proyectoo_UES
             dtpFecha = new DateTimePicker();
             nudCapacidad = new NumericUpDown();
             dgvActividades = new DataGridView();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
+            ID = new DataGridViewTextBoxColumn();
+            Actividad = new DataGridViewTextBoxColumn();
+            Fecha = new DataGridViewTextBoxColumn();
+            Lugar = new DataGridViewTextBoxColumn();
+            Capacidad = new DataGridViewTextBoxColumn();
+            Inscritos = new DataGridViewTextBoxColumn();
+            Disponibles = new DataGridViewTextBoxColumn();
+            EnEspera = new DataGridViewTextBoxColumn();
             btnRegistrar = new Button();
             btnEliminar = new Button();
             btnLimpiar = new Button();
@@ -198,7 +198,7 @@ namespace Proyectoo_UES
             dgvActividades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvActividades.BackgroundColor = Color.Tan;
             dgvActividades.ColumnHeadersHeight = 29;
-            dgvActividades.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8 });
+            dgvActividades.Columns.AddRange(new DataGridViewColumn[] { ID, Actividad, Fecha, Lugar, Capacidad, Inscritos, Disponibles, EnEspera });
             dgvActividades.Dock = DockStyle.Fill;
             dgvActividades.Location = new Point(0, 349);
             dgvActividades.Name = "dgvActividades";
@@ -208,61 +208,61 @@ namespace Proyectoo_UES
             dgvActividades.Size = new Size(1050, 248);
             dgvActividades.TabIndex = 0;
             // 
-            // dataGridViewTextBoxColumn1
+            // ID
             // 
-            dataGridViewTextBoxColumn1.HeaderText = "ID";
-            dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.ReadOnly = true;
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn2
+            // Actividad
             // 
-            dataGridViewTextBoxColumn2.HeaderText = "Actividad";
-            dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.ReadOnly = true;
+            Actividad.HeaderText = "Actividad";
+            Actividad.MinimumWidth = 6;
+            Actividad.Name = "Actividad";
+            Actividad.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn3
+            // Fecha
             // 
-            dataGridViewTextBoxColumn3.HeaderText = "Fecha";
-            dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            dataGridViewTextBoxColumn3.ReadOnly = true;
+            Fecha.HeaderText = "Fecha";
+            Fecha.MinimumWidth = 6;
+            Fecha.Name = "Fecha";
+            Fecha.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn4
+            // Lugar
             // 
-            dataGridViewTextBoxColumn4.HeaderText = "Lugar";
-            dataGridViewTextBoxColumn4.MinimumWidth = 6;
-            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            dataGridViewTextBoxColumn4.ReadOnly = true;
+            Lugar.HeaderText = "Lugar";
+            Lugar.MinimumWidth = 6;
+            Lugar.Name = "Lugar";
+            Lugar.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn5
+            // Capacidad
             // 
-            dataGridViewTextBoxColumn5.HeaderText = "Capacidad";
-            dataGridViewTextBoxColumn5.MinimumWidth = 6;
-            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            dataGridViewTextBoxColumn5.ReadOnly = true;
+            Capacidad.HeaderText = "Capacidad";
+            Capacidad.MinimumWidth = 6;
+            Capacidad.Name = "Capacidad";
+            Capacidad.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn6
+            // Inscritos
             // 
-            dataGridViewTextBoxColumn6.HeaderText = "Inscritos";
-            dataGridViewTextBoxColumn6.MinimumWidth = 6;
-            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            dataGridViewTextBoxColumn6.ReadOnly = true;
+            Inscritos.HeaderText = "Inscritos";
+            Inscritos.MinimumWidth = 6;
+            Inscritos.Name = "Inscritos";
+            Inscritos.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn7
+            // Disponibles
             // 
-            dataGridViewTextBoxColumn7.HeaderText = "Disponibles";
-            dataGridViewTextBoxColumn7.MinimumWidth = 6;
-            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            dataGridViewTextBoxColumn7.ReadOnly = true;
+            Disponibles.HeaderText = "Disponibles";
+            Disponibles.MinimumWidth = 6;
+            Disponibles.Name = "Disponibles";
+            Disponibles.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn8
+            // EnEspera
             // 
-            dataGridViewTextBoxColumn8.HeaderText = "En espera";
-            dataGridViewTextBoxColumn8.MinimumWidth = 6;
-            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            dataGridViewTextBoxColumn8.ReadOnly = true;
+            EnEspera.HeaderText = "En espera";
+            EnEspera.MinimumWidth = 6;
+            EnEspera.Name = "EnEspera";
+            EnEspera.ReadOnly = true;
             // 
             // btnRegistrar
             // 
@@ -398,28 +398,16 @@ namespace Proyectoo_UES
             ResumeLayout(false);
         }
 
-        // Declara la columna 1 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1; // Declara la tabla donde se muestran las actividades.
-                                                                      // Declara la columna 2 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2; // Declara la tabla donde se muestran las actividades.
-                                                                      // Declara la columna 3 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3; // Declara la tabla donde se muestran las actividades.
-                                                                      // Declara la columna 4 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4; // Declara la tabla donde se muestran las actividades.
-                                                                      // Declara la columna 5 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5; // Declara la tabla donde se muestran las actividades.
-                                                                      // Declara la columna 6 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6; // Declara la tabla donde se muestran las actividades.
-                                                                      // Declara la columna 7 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7; // Declara la tabla donde se muestran las actividades.
-                                                                      // Declara la columna 8 de tipo texto para la tabla.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8; // Declara la tabla donde se muestran las actividades.
-                                                                      // Declara el contenedor en cuadrícula del formulario.
-        private TableLayoutPanel formulario; // Declara un contenedor que organiza controles en filas y columnas.
-                                             // Declara el contenedor de flujo para los botones.
-        private FlowLayoutPanel botones; // Declara un contenedor que organiza controles en secuencia.
-                                         // Declara el control de imagen del logotipo.
-        private PictureBox pictureBox1; // Declara el control que muestra el logotipo.
+        private TableLayoutPanel formulario; // Declara el contenedor de diseño en cuadrícula para los campos.
+        private FlowLayoutPanel botones; // Declara el contenedor de diseño secuencial para los botones.
+        private PictureBox pictureBox1; // Declara el control visual para mostrar el logotipo.
+        private DataGridViewTextBoxColumn ID; // Declara la columna ID para el Grid.
+        private DataGridViewTextBoxColumn Actividad; // Declara la columna Actividad para el Grid.
+        private DataGridViewTextBoxColumn Fecha; // Declara la columna Fecha para el Grid.
+        private DataGridViewTextBoxColumn Lugar; // Declara la columna Lugar para el Grid.
+        private DataGridViewTextBoxColumn Capacidad; // Declara la columna Capacidad para el Grid.
+        private DataGridViewTextBoxColumn Inscritos; // Declara la columna Inscritos para el Grid.
+        private DataGridViewTextBoxColumn Disponibles; // Declara la columna Disponibles para el Grid.
+        private DataGridViewTextBoxColumn EnEspera; // Declara la columna EnEspera para el Grid.
     }
-
 }

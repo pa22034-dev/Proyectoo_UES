@@ -193,5 +193,62 @@ namespace Proyectoo_UES.Estructuras
             // Retorna true si se eliminó el carné buscado, o false si no estaba en la cola.
             return eliminada;
         }
+    
+    
+        // Método público que permite actualizar los datos de un estudiante
+        // que se encuentra dentro de la cola de espera.
+        public bool ActualizarPorCarnet(string carnetAnterior, Estudiante estudianteNuevo)
+        {
+            // Crea una cola auxiliar para almacenar temporalmente las solicitudes.
+            ColaInscripciones temporal = new ColaInscripciones();
+
+            // Variable que indica si se encontró y actualizó al estudiante.
+            bool actualizado = false;
+
+            // Recorre todos los elementos de la cola original.
+            while (!EstaVacia)
+            {
+                // Extrae la solicitud que se encuentra al frente de la cola.
+                SolicitudInscripcion solicitud = Desencolar();
+
+                // Comprueba si el carné de la solicitud coincide con el carné anterior.
+                if (!actualizado &&
+                    solicitud.Estudiante.Carnet.Equals(
+                        carnetAnterior, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Crea una nueva solicitud con los datos actualizados del estudiante.
+                    // También conserva la fecha y hora de la solicitud original.
+                    SolicitudInscripcion nuevaSolicitud =
+                        new SolicitudInscripcion(
+                            estudianteNuevo,
+                            solicitud.FechaSolicitud);
+
+                    // Guarda la nueva solicitud en la cola temporal.
+                    temporal.Encolar(nuevaSolicitud);
+
+                    // Indica que el estudiante ya fue actualizado.
+                    actualizado = true;
+                }
+                else
+                {
+                    // Si no corresponde al estudiante buscado,
+                    // conserva la solicitud original en la cola temporal.
+                    temporal.Encolar(solicitud);
+                }
+            }
+
+            // Devuelve todos los elementos de la cola temporal a la cola original.
+            while (!temporal.EstaVacia)
+            {
+                // Extrae el primer elemento de la cola temporal
+                // y lo agrega al final de la cola original.
+                Encolar(temporal.Desencolar());
+            }
+
+            // Devuelve true si encontró y actualizó al estudiante.
+            return actualizado;
+        } 
     }
+
+    
 }

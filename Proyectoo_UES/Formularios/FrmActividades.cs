@@ -93,8 +93,35 @@ namespace Proyectoo_UES
         // Evento que se ejecuta al hacer clic en el botón "Actualizar".
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            // Llama al método auxiliar que recarga los datos en la tabla de actividades.
-            ActualizarTabla();
+            // 1. Verifica si hay una fila seleccionada en la tabla.
+            if (dgvActividades.CurrentRow == null)
+            {
+                MessageBox.Show("Selecciona una actividad de la tabla para actualizar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Obtiene el ID de la actividad seleccionada (usando la columna en la posición 0).
+            int id = Convert.ToInt32(dgvActividades.CurrentRow.Cells[0].Value);
+
+            // 3. Llama al gestor para actualizar la actividad con los nuevos datos de los controles.
+            // (Nota: Asegúrate de que tu clase GestorActividades tenga un método que reciba estos parámetros para actualizar).
+            bool correcto = gestor.ActualizarActividad(
+                id, txtNombre.Text, txtDescripcion.Text, dtpFecha.Value.Date,
+                txtLugar.Text, (int)nudCapacidad.Value, out string mensaje);
+
+            // Muestra el resultado de la operación.
+            MessageBox.Show(mensaje, "Gestión de actividades",
+                MessageBoxButtons.OK,
+                correcto ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+
+            // Si la actualización fue exitosa:
+            if (correcto)
+            {
+                // Limpia los campos y refresca la tabla.
+                Limpiar();
+                ActualizarTabla();
+            }
+
         }
 
         // Evento que se ejecuta al hacer clic en el botón "Volver".

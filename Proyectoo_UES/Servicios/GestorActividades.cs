@@ -93,6 +93,73 @@ namespace Proyectoo_UES.Servicios
             return true;
         }
 
+        // Método público para actualizar los datos de una actividad existente.
+        public bool ActualizarActividad(int id, string nombre, string descripcion, DateTime fecha,
+                                       string lugar, int capacidad, out string mensaje)
+        {
+            // Busca la actividad mediante su ID.
+            Actividad actividad = BuscarActividad(id);
+
+            if (actividad == null)
+            {
+                mensaje = "La actividad seleccionada no existe.";
+                return false;
+            }
+
+            nombre = (nombre ?? "").Trim();
+            descripcion = (descripcion ?? "").Trim();
+            lugar = (lugar ?? "").Trim();
+
+            // Validaciones básicas (iguales que en el registro)
+            if (nombre.Length < 3)
+            {
+                mensaje = "El nombre debe tener al menos 3 caracteres.";
+                return false;
+            }
+
+            if (lugar.Length < 2)
+            {
+                mensaje = "Ingresa un lugar válido.";
+                return false;
+            }
+
+            if (fecha.Date < DateTime.Today)
+            {
+                mensaje = "La fecha no puede estar en el pasado.";
+                return false;
+            }
+
+            if (capacidad < 1 || capacidad > 500)
+            {
+                mensaje = "La capacidad debe estar entre 1 y 500 cupos.";
+                return false;
+            }
+
+            // Validar que el nuevo nombre no pertenezca a OTRA actividad distinta
+            Actividad duplicada = actividades.BuscarPorNombre(nombre);
+            if (duplicada != null && duplicada.Id != id)
+            {
+                mensaje = "Ya existe otra actividad con ese nombre.";
+                return false;
+            }
+
+            // Validar que la nueva capacidad no sea menor a la cantidad de inscritos actuales
+            if (capacidad < actividad.Inscritos)
+            {
+                mensaje = $"La capacidad no puede ser menor a los inscritos actuales ({actividad.Inscritos}).";
+                return false;
+            }
+
+            // Actualiza los valores de la actividad
+            actividad.Nombre = nombre;
+            actividad.Descripcion = descripcion;
+            actividad.Fecha = fecha;
+            actividad.Lugar = lugar;
+
+            mensaje = "Actividad actualizada correctamente.";
+            return true;
+        }
+
         // Método público para eliminar una actividad por su ID si cumple las condiciones; devuelve éxito y mensaje.
         public bool EliminarActividad(int id, out string mensaje)
         {
@@ -193,6 +260,119 @@ namespace Proyectoo_UES.Servicios
             // Devuelve true indicando que la solicitud fue procesada.
             return true;
         }
+
+
+        // Método público que permite actualizar el carné y nombre
+        // de un estudiante inscrito o que se encuentra en lista de espera.
+        public bool ActualizarEstudiante(int idActividad, string carnetAnterior,
+                                         string nuevoCarnet, string nuevoNombre,
+                                         out string mensaje)
+        {
+            // Busca la actividad correspondiente mediante su identificador.
+            Actividad actividad = BuscarActividad(idActividad);
+
+            // Comprueba que la actividad exista.
+            if (actividad == null)
+            {
+                // Asigna un mensaje indicando que la actividad no existe.
+                mensaje = "La actividad seleccionada no existe.";
+
+                // Devuelve false porque no se puede realizar la actualización.
+                return false;
+            }
+
+            // Elimina los espacios en blanco al inicio y al final del carné anterior.
+            carnetAnterior = (carnetAnterior ?? "").Trim();
+
+            // Elimina los espacios en blanco al inicio y al final del nuevo carné.
+            nuevoCarnet = (nuevoCarnet ?? "").Trim();
+
+            // Elimina los espacios en blanco al inicio y al final del nuevo nombre.
+            nuevoNombre = (nuevoNombre ?? "").Trim();
+
+            // Verifica que el carné anterior no esté vacío.
+            if (string.IsNullOrWhiteSpace(carnetAnterior))
+            {
+                // Asigna un mensaje solicitando seleccionar un estudiante.
+                mensaje = "Selecciona un estudiante para actualizar.";
+
+                // Interrumpe el proceso.
+                return false;
+            }
+
+            // Valida que el nuevo carné tenga entre 3 y 20 caracteres.
+            if (nuevoCarnet.Length < 3 || nuevoCarnet.Length > 20)
+            {
+                // Asigna un mensaje indicando el formato permitido.
+                mensaje = "El carné debe tener entre 3 y 20 caracteres.";
+
+                // Interrumpe la actualización.
+                return false;
+            }
+
+            // Valida que el nombre del estudiante tenga al menos 3 caracteres.
+            if (nuevoNombre.Length < 3)
+            {
+                // Asigna un mensaje indicando la longitud mínima del nombre.
+                mensaje = "El nombre del estudiante debe tener al menos 3 caracteres.";
+
+                // Interrumpe la actualización.
+                return false;
+            }
+
+            // Comprueba que el estudiante original esté inscrito
+            // o se encuentre en la cola de espera.
+            if (!actividad.EstaInscrito(carnetAnterior) &&
+                !actividad.EstaEnEspera(carnetAnterior))
+            {
+                // Informa que no se encontró el estudiante seleccionado.
+                mensaje = "No se encontró al estudiante que deseas actualizar.";
+
+                // Interrumpe la actualización.
+                return false;
+            }
+
+            // Comprueba si el nuevo carné es diferente del carné anterior.
+            bool mismoCarnet = carnetAnterior.Equals(
+                nuevoCarnet, StringComparison.OrdinalIgnoreCase);
+
+            // Si el carné es diferente, verifica que no pertenezca a otro estudiante.
+            if (!mismoCarnet &&
+                (actividad.EstaInscrito(nuevoCarnet) ||
+                 actividad.EstaEnEspera(nuevoCarnet)))
+            {
+                // Informa que el carné ya está registrado en esta actividad.
+                mensaje = "Ya existe otro estudiante con ese carné.";
+
+                // Interrumpe la actualización para evitar duplicados.
+                return false;
+            }
+
+            // Crea un nuevo objeto Estudiante con el carné y nombre modificados.
+            Estudiante estudianteNuevo = new Estudiante(
+                nuevoCarnet, nuevoNombre);
+
+            // Llama al método de Actividad para reemplazar los datos del estudiante.
+            bool actualizado = actividad.ActualizarEstudiante(
+                carnetAnterior, estudianteNuevo);
+
+            // Comprueba si la actualización se realizó correctamente.
+            if (actualizado)
+            {
+                // Asigna un mensaje de confirmación.
+                mensaje = "Los datos del estudiante se actualizaron correctamente.";
+
+                // Devuelve true indicando que la operación fue exitosa.
+                return true;
+            }
+
+            // Asigna un mensaje si no fue posible realizar la actualización.
+            mensaje = "No fue posible actualizar los datos del estudiante.";
+
+            // Devuelve false indicando que la operación falló.
+            return false;
+        }
+
 
         // Método público para cancelar la inscripción o solicitud en espera de un estudiante mediante su carné.
         public bool Cancelar(int idActividad, string carnet, out string mensaje)

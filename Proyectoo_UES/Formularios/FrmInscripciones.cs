@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using Proyectoo_UES.Modelos;
 using Proyectoo_UES.Servicios;
 
-
 namespace Proyectoo_UES.Formularios
 {
     // Declara la clase parcial FrmInscripciones que hereda de Form para gestionar inscripciones visualmente.
@@ -17,14 +16,26 @@ namespace Proyectoo_UES.Formularios
         // Referencia privada y de solo lectura al gestor que coordina las operaciones del sistema.
         private readonly GestorActividades gestor;
 
+
+        // Variable privada que almacena el carné original del estudiante seleccionado.
+      
+        private string carnetSeleccionado = null;
+
+
         // Constructor del formulario que recibe la instancia compartida de GestorActividades.
         public FrmInscripciones(GestorActividades gestor)
         {
-            // Asigna el gestor recibido al campo privado de la clase.
             this.gestor = gestor;
-            // Inicializa todos los controles visuales diseñados en el formulario (botones, cajas de texto, tablas).
             InitializeComponent();
-            // Carga la lista inicial de actividades en el ComboBox al abrir el formulario.
+
+            // Asocia el evento CellClick de la tabla de inscritos con su método correspondiente.
+            dgvInscritos.CellClick += dgvInscritos_CellClick;
+
+            // Asocia el evento CellClick de la tabla de espera con su método correspondiente.
+            dgvEspera.CellClick += dgvEspera_CellClick;
+
+
+
             CargarActividades();
         }
 
@@ -120,11 +131,69 @@ namespace Proyectoo_UES.Formularios
         // Evento que se ejecuta al hacer clic en el botón "Actualizar".
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            // Vuelve a cargar la lista de actividades en el ComboBox.
-            CargarActividades();
-            // Refresca los datos mostrados en las tablas de inscritos y lista de espera.
-            ActualizarTablas();
+            // Obtiene la actividad seleccionada actualmente en el ComboBox.
+            Actividad actividad = ActividadSeleccionada;
+
+            // Comprueba que exista una actividad seleccionada.
+            if (actividad == null)
+            {
+                // Muestra un mensaje solicitando seleccionar una actividad.
+                MessageBox.Show("Selecciona una actividad.");
+
+                // Termina la ejecución del evento.
+                return;
+            }
+
+            // Comprueba que se haya seleccionado un estudiante de alguna de las tablas.
+            if (string.IsNullOrWhiteSpace(carnetSeleccionado))
+            {
+                // Muestra un mensaje indicando que primero debe seleccionar un estudiante.
+                MessageBox.Show("Selecciona un estudiante de alguna de las tablas.");
+
+                // Termina la ejecución del evento.
+                return;
+            }
+
+            // Llama al gestor para actualizar el estudiante seleccionado.
+            // Envía el ID de la actividad, el carné original y los nuevos datos.
+            bool correcto = gestor.ActualizarEstudiante(
+                actividad.Id,
+                carnetSeleccionado,
+                txtCarnet.Text,
+                txtNombre.Text,
+                out string mensaje);
+
+            // Muestra el mensaje devuelto por el gestor.
+            // El ícono depende de si la actualización fue exitosa o no.
+            MessageBox.Show(
+                mensaje,
+                "Actualizar estudiante",
+                MessageBoxButtons.OK,
+                correcto ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+
+            // Comprueba si la actualización se realizó correctamente.
+            if (correcto)
+            {
+                // Limpia el carné original almacenado.
+                carnetSeleccionado = null;
+
+                // Limpia el campo de texto del carné.
+                txtCarnet.Clear();
+
+                // Limpia el campo de texto del nombre.
+                txtNombre.Clear();
+
+                // Recarga las actividades para mostrar los datos actualizados.
+                CargarActividades();
+
+                // Actualiza las tablas de inscritos y estudiantes en espera.
+                ActualizarTablas();
+            }
+
+
         }
+
+           
 
         // Evento que se ejecuta al hacer clic en el botón "Volver".
         private void btnVolver_Click(object sender, EventArgs e)
@@ -214,6 +283,66 @@ namespace Proyectoo_UES.Formularios
                 dgvEspera.Rows.Add(s.Estudiante.Carnet, s.Estudiante.Nombre,
                     s.FechaSolicitud.ToString("dd/MM/yyyy HH:mm:ss"));
             }
+        }
+
+        private void dgvInscritos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Comprueba que el clic corresponda a una fila válida
+            // y que no sea la fila de encabezados.
+            if (e.RowIndex < 0 || e.RowIndex >= dgvInscritos.Rows.Count)
+            {
+                // Termina el método si no existe una fila válida.
+                return;
+            }
+
+            // Obtiene la fila seleccionada de la tabla de inscritos.
+            DataGridViewRow fila = dgvInscritos.Rows[e.RowIndex];
+
+            // Guarda el carné original del estudiante seleccionado.
+            carnetSeleccionado = fila.Cells[0].Value?.ToString();
+
+            // Muestra el carné del estudiante en el TextBox correspondiente.
+            txtCarnet.Text = carnetSeleccionado ?? "";
+
+            // Muestra el nombre del estudiante en el TextBox correspondiente.
+            txtNombre.Text = fila.Cells[1].Value?.ToString() ?? "";
+
+
+
+        }
+
+        private void dgvEspera_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Comprueba que el clic corresponda a una fila válida
+            // y que no sea la fila de encabezados.
+            if (e.RowIndex < 0 || e.RowIndex >= dgvEspera.Rows.Count)
+            {
+                // Termina el método si no existe una fila válida.
+                return;
+            }
+
+            // Obtiene la fila seleccionada de la tabla de espera.
+            DataGridViewRow fila = dgvEspera.Rows[e.RowIndex];
+
+            // Guarda el carné original del estudiante seleccionado.
+            carnetSeleccionado = fila.Cells[0].Value?.ToString();
+
+            // Muestra el carné del estudiante en el TextBox correspondiente.
+            txtCarnet.Text = carnetSeleccionado ?? "";
+
+            // Muestra el nombre del estudiante en el TextBox correspondiente.
+            txtNombre.Text = fila.Cells[1].Value?.ToString() ?? "";
+
+        }
+
+        private void dgvInscritos_SelectionChanged(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void dgvEspera_SelectionChanged(object sender, EventArgs e)
+        {
         }
     }
 }

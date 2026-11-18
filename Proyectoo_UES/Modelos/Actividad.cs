@@ -12,13 +12,13 @@ namespace Proyectoo_UES.Modelos
         // Propiedad de solo lectura que almacena el identificador numérico único de la actividad.
         public int Id { get; }
         // Propiedad de solo lectura que almacena el nombre de la actividad.
-        public string Nombre { get; }
+        public string Nombre { get; set; }
         // Propiedad de solo lectura que almacena la descripción detallada de la actividad.
-        public string Descripcion { get; }
+        public string Descripcion { get; set; }
         // Propiedad de solo lectura que almacena la fecha programada para la actividad.
-        public DateTime Fecha { get; }
+        public DateTime Fecha { get; set; }
         // Propiedad de solo lectura que almacena el lugar físico donde se realizará la actividad.
-        public string Lugar { get; }
+        public string Lugar { get; set; }
 
         // Arreglo privado y de solo lectura que representa los espacios o cupos físicos disponibles.
         private readonly Estudiante[] cupos;
@@ -180,6 +180,70 @@ namespace Proyectoo_UES.Modelos
             // Retorna false si no se encontró ningún estudiante inscrito con ese carné.
             return false;
         }
+
+
+        // Método público que permite actualizar los datos de un estudiante
+        // que se encuentra inscrito o en la lista de espera.
+        public bool ActualizarEstudiante(string carnetAnterior, Estudiante estudianteNuevo)
+        {
+            // Recorre todas las posiciones del arreglo de cupos.
+            for (int i = 0; i < cupos.Length; i++)
+            {
+                // Comprueba que la posición tenga un estudiante
+                // y que su carné coincida con el carné anterior.
+                if (cupos[i] != null &&
+                    cupos[i].Carnet.Equals(
+                        carnetAnterior, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Reemplaza el estudiante anterior por el nuevo estudiante.
+                    cupos[i] = estudianteNuevo;
+
+                    // Devuelve true indicando que la actualización fue exitosa.
+                    return true;
+                }
+            }
+
+            // Si no se encontró en el arreglo de inscritos,
+            // intenta actualizarlo dentro de la cola de espera.
+            return ColaEspera.ActualizarPorCarnet(
+                carnetAnterior, estudianteNuevo);
+        }
+
+
+
+
+        public bool ActualizarInscrito(string carnetAnterior, Estudiante estudianteNuevo)
+        {
+            // Verifica que el nuevo carné no esté repetido.
+            for (int i = 0; i < cupos.Length; i++)
+            {
+                if (cupos[i] != null &&
+                    !cupos[i].Carnet.Equals(carnetAnterior,
+                    StringComparison.OrdinalIgnoreCase) &&
+                    cupos[i].Carnet.Equals(estudianteNuevo.Carnet,
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+            }
+
+            // Busca al estudiante que se desea actualizar.
+            for (int i = 0; i < cupos.Length; i++)
+            {
+                if (cupos[i] != null &&
+                    cupos[i].Carnet.Equals(carnetAnterior,
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    // Reemplaza el objeto anterior por el nuevo.
+                    cupos[i] = estudianteNuevo;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
 
         // Método público que devuelve un arreglo compacto únicamente con los estudiantes inscritos (sin espacios nulos).
         public Estudiante[] ObtenerInscritos()

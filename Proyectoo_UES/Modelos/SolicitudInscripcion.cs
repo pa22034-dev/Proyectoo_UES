@@ -1,20 +1,36 @@
+
+using System;
+
+// Define el espacio de nombres de las clases del modelo.
 namespace Proyectoo_UES.Modelos
 {
-    // Declara la clase pública SolicitudInscripcion para almacenar los datos de un alumno en la cola de espera.
+    // Representa una solicitud de inscripción de un estudiante en la cola de espera.
     public class SolicitudInscripcion
     {
-        // Propiedad de solo lectura que almacena la información del estudiante asociado a la solicitud.
+        // Propiedad de solo lectura que almacena los datos del estudiante.
         public Estudiante Estudiante { get; }
-        // Propiedad de solo lectura que almacena la fecha y hora exacta en que se creó la solicitud.
+
+        // Propiedad de solo lectura que almacena la fecha y hora de la solicitud.
         public DateTime FechaSolicitud { get; }
 
-        // Constructor que recibe el estudiante y registra la fecha/hora actual del sistema.
+        // Constructor principal que recibe un estudiante y registra la fecha actual.
         public SolicitudInscripcion(Estudiante estudiante)
         {
-            // Asigna el estudiante recibido a la propiedad Estudiante.
+            // Asigna el estudiante recibido a la propiedad correspondiente.
             Estudiante = estudiante;
-            // Asigna la fecha y hora actual del sistema a la propiedad FechaSolicitud.
+
+            // Guarda la fecha y hora actual del sistema.
             FechaSolicitud = DateTime.Now;
+        }
+
+        // Constructor adicional que permite crear una solicitud conservando su fecha original.
+        public SolicitudInscripcion(Estudiante estudiante, DateTime fechaSolicitud)
+        {
+            // Asigna el estudiante recibido a la propiedad correspondiente.
+            Estudiante = estudiante;
+
+            // Conserva la fecha y hora original de la solicitud.
+            FechaSolicitud = fechaSolicitud;
         }
     }
 }

@@ -157,25 +157,31 @@ namespace Proyectoo_UES.Formularios
             dgvInscritos.BackgroundColor = Color.Tan;
             dgvInscritos.ColumnHeadersHeight = 29;
             dgvInscritos.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5 });
-            dgvInscritos.Location = new Point(12, 26);
+            dgvInscritos.Dock = DockStyle.Fill;
+            dgvInscritos.GridColor = SystemColors.InfoText;
+            dgvInscritos.Location = new Point(3, 23);
             dgvInscritos.Name = "dgvInscritos";
             dgvInscritos.RowHeadersWidth = 51;
-            dgvInscritos.Size = new Size(304, 209);
+            dgvInscritos.Size = new Size(888, 131);
             dgvInscritos.TabIndex = 0;
+            dgvInscritos.CellClick += dgvInscritos_CellClick;
+            dgvInscritos.SelectionChanged += dgvInscritos_SelectionChanged;
             // 
             // dataGridViewTextBoxColumn4
             // 
             dataGridViewTextBoxColumn4.HeaderText = "Carné";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.ReadOnly = true;
             dataGridViewTextBoxColumn4.Width = 125;
             // 
             // dataGridViewTextBoxColumn5
             // 
+            dataGridViewTextBoxColumn5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewTextBoxColumn5.HeaderText = "Estudiante inscrito";
             dataGridViewTextBoxColumn5.MinimumWidth = 6;
             dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            dataGridViewTextBoxColumn5.Width = 125;
+            dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
             // dgvEspera
             // 
@@ -185,8 +191,10 @@ namespace Proyectoo_UES.Formularios
             dgvEspera.Location = new Point(12, 23);
             dgvEspera.Name = "dgvEspera";
             dgvEspera.RowHeadersWidth = 51;
-            dgvEspera.Size = new Size(429, 209);
+            dgvEspera.Size = new Size(509, 209);
             dgvEspera.TabIndex = 0;
+            dgvEspera.CellClick += dgvEspera_CellClick;
+            dgvEspera.SelectionChanged += dgvEspera_SelectionChanged;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -197,17 +205,19 @@ namespace Proyectoo_UES.Formularios
             // 
             // dataGridViewTextBoxColumn2
             // 
+            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewTextBoxColumn2.HeaderText = "Estudiante en espera";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.Width = 125;
+            dataGridViewTextBoxColumn2.Width = 175;
             // 
             // dataGridViewTextBoxColumn3
             // 
+            dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewTextBoxColumn3.HeaderText = "Fecha de solicitud";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            dataGridViewTextBoxColumn3.Width = 125;
+            dataGridViewTextBoxColumn3.Width = 157;
             // 
             // btnInscribir
             // 
@@ -261,7 +271,7 @@ namespace Proyectoo_UES.Formularios
             // 
             grpInscritos.Controls.Add(dgvInscritos);
             grpInscritos.Dock = DockStyle.Fill;
-            grpInscritos.ForeColor = SystemColors.Control;
+            grpInscritos.ForeColor = Color.Black;
             grpInscritos.Location = new Point(3, 3);
             grpInscritos.Name = "grpInscritos";
             grpInscritos.Size = new Size(894, 157);
@@ -273,7 +283,7 @@ namespace Proyectoo_UES.Formularios
             // 
             grpEspera.Controls.Add(dgvEspera);
             grpEspera.Dock = DockStyle.Fill;
-            grpEspera.ForeColor = SystemColors.Control;
+            grpEspera.ForeColor = Color.Black;
             grpEspera.Location = new Point(3, 166);
             grpEspera.Name = "grpEspera";
             grpEspera.Size = new Size(894, 157);
@@ -385,21 +395,6 @@ namespace Proyectoo_UES.Formularios
             tabla.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        // Declara la columna Carné de la tabla de estudiantes inscritos.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-
-        // Declara la columna Estudiante inscrito de la tabla de inscritos.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-
-        // Declara la columna Carné de la tabla de espera.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-
-        // Declara la columna Estudiante en espera de la tabla de espera.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-
-        // Declara la columna Fecha de solicitud de la tabla de espera.
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-
         // Declara el contenedor que organiza los campos de entrada en filas y columnas.
         private TableLayoutPanel datos;
 
@@ -411,5 +406,10 @@ namespace Proyectoo_UES.Formularios
 
         // Declara el control que permite mostrar el logotipo de la universidad.
         private PictureBox pictureBox1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
     }
 }
